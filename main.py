@@ -1,25 +1,23 @@
 import json
-
 from flask import Flask, request
-from transformers import pipeline
-app = Flask(__name__)
-sentiment_pipeline = pipeline("sentiment-analysis", model="cardiffnlp/twitter-roberta-base-sentiment")
+from application_context.app_context import app_context
 import requests
 
-def get_sentiments(data):
-    return sentiment_pipeline(data)
+app = Flask(__name__)
 
-def get_twitter_data():
-    url = "https://api.twitter.com/2/tweets/search/recent?query=atlassian"
 
-    payload = {}
-    headers = {
-        'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAKOwiwEAAAAAnMlPApzvBJT4tvPZM%2BFDWwl%2F3ME%3DXKbifYqcL6LGv0SkipQZwevhgP6YTsFIKhUfdzkSbCyOxr1isc',
-        'Cookie': 'guest_id=v1%3A166341311025469413'
-    }
 
-    response = requests.request("GET", url, headers=headers, data=payload)
-    return response.text
+# def get_twitter_data():
+#     url = "https://api.twitter.com/2/tweets/search/recent?query="
+#
+#     payload = {}
+#     headers = {
+#         'Authorization': 'Bearer AAAAAAAAAAAAAAAAAAAAAKOwiwEAAAAAnMlPApzvBJT4tvPZM%2BFDWwl%2F3ME%3DXKbifYqcL6LGv0SkipQZwevhgP6YTsFIKhUfdzkSbCyOxr1isc',
+#         'Cookie': 'guest_id=v1%3A166341311025469413'
+#     }
+#
+#     response = requests.request("GET", url, headers=headers, data=payload)
+#     return response.text
 
 
 @app.route('/sentiments/', methods=['GET'])
